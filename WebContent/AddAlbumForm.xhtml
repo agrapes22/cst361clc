@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Add Music Album</title>
+</h:head>
+<body>
+	<h1 align="center">Add Music Album</h1>
+	<div align="center">
+		<h:form>
+			<table>
+				<tr>
+					<td align="right"><h:outputLabel for="title">Title</h:outputLabel></td>
+					<td><h:inputText id="title" value="#{album.title}"
+							placeholder="Title"></h:inputText> <h:message for="title"
+							style="color:red" /></td>
+				</tr>
+				<tr>
+					<td align="right"><h:outputLabel for="artist">Artist</h:outputLabel></td>
+					<td><h:inputText id="artist" value="#{album.artist}"></h:inputText>
+						<h:message for="artist" style="color:red" /></td>
+				</tr>
+				<tr>
+					<td align="right"><h:outputLabel for="year">Year</h:outputLabel></td>
+					<td><h:inputText id="year" minlength="4" value="#{album.year}"></h:inputText>
+						<h:message for="year" style="color:red" /></td>
+				</tr>
+			</table>
+			<h:commandButton id="submit-button" value="Submit"
+				action="#{AlbumController.onSubmit(album)}" />
+		</h:form>
+	</div>
+</body>
+</html>
