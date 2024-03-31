@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/css/Navbar-With-Button-icons.css"/>
+</h:head> 
+<body>
+	<nav class="navbar navbar-light navbar-expand-md py-3">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#" style="margin-right: 0px;"><span>Wi-Fi Thermometer App</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-4"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse flex-grow-0 order-md-first" id="navcol-4">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                </ul>
+                <div class="d-md-none my-2"><button class="btn btn-light me-2" type="button">Button</button><button class="btn btn-primary" type="button">Button</button></div>
+            </div>
+            <div class="d-none d-md-block"><button class="btn btn-light me-2" type="button">Sign Out</button><a class="btn btn-primary" role="button" href="#">Account</a></div>
+        </div>
+    </nav>
+	<h1 align="center">Dashboard</h1>
+	<div align="center">
+		<h:form>
+			<table class="custom-table">
+				<tr style="padding-top: 5px;" class="custom-tr">
+					<td align="right"><h:outputLabel for="name" >Thermometer Name</h:outputLabel></td>
+					<td>
+						<h:inputText id="name" value="#{thermometer.name}"></h:inputText>
+						<h:message for="name" style="color:red"/>
+					</td>
+				</tr>
+				<tr style="padding-top: 5px;" class="custom-tr">
+					<td align="right"><h:outputLabel for="setTemp">Set Temp</h:outputLabel></td>
+					<td>
+						<h:inputText id="setTemp" value="#{thermometer.setTemp}"></h:inputText>
+						<h:message for="setTemp" style="color:red"/>
+					</td>
+				</tr>
+			</table>
+			<h:commandButton id="submit-button" value="Start Thermometer" action="#{ThermometerController.startTherm(thermometer)}"/>  
+		</h:form>
+	</div>
+	
+	<div align="center">
+		<table border="1px solid black">
+	      <tr>
+	         <th>Time</th>
+	         <th>Temperature</th>
+	      </tr>
+	   
+		   <tr>
+		      <td>8:57 PM</td>
+		      <td>75</td>
+		   </tr>
+		   
+		   <tr>
+		      <td>8:58 PM</td>
+		      <td>78</td>
+		   </tr>
+		   <tr>
+		      <td>8:59 PM</td>
+		      <td>82</td>
+		   </tr>
+		   <tr>
+		      <td>9:00 PM</td>
+		      <td>86</td>
+		   </tr>
+		   <tr>
+		      <td>9:01 PM</td>
+		      <td>91</td>
+		   </tr>
+		   <tr>
+		      <td>9:02 PM</td>
+		      <td>96</td>
+		   </tr>
+		   <tr>
+		      <td>9:03 PM</td>
+		      <td>105</td>
+		   </tr>
+		   <tr>
+		      <td>9:04 PM</td>
+		      <td>110</td>
+		   </tr>
+		   <tr>
+		      <td>9:05 PM</td>
+		      <td>115</td>
+		   </tr>
+		</table>
+	</div>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body> 
+</html>
