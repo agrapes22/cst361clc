@@ -33,20 +33,44 @@ private Connection con;
 	}
 
 	@Override
-	public User create(User o) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public User create(User o) {
+		User u = new User();
+		o.setId(0);
+		try {
+			String sql = "INSERT INTO USER (username, firstname, lastname, email, passwordHash, userCreated, lastLogin, accountLocked) VALUES('" + o.getUsername() + "', '" + o.getFullName().substring(0, o.getFullName().indexOf(" "))
+					+ "', '" + o.getFullName().substring(o.getFullName().indexOf(" ") + 1)
+					+ "', '" + o.getEmailAddress() + "', '" + o.getPassword() + "', SYSDATE(), SYSDATE(), 'N')";
+			System.out.println(sql);
+			Statement s = con.createStatement();
+			s.executeUpdate(sql);
+			u = get(o);
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		System.out.println(u.getUsername() + " " + u.getFullName() + " " + u.getEmailAddress());
+		return u;
 	}
 
 	@Override
 	public User update(User o) {
-		// TODO Auto-generated method stub
-		return null;
+		User u = new User();
+		try {
+			String sql = "UPDATE USER SET username = '" + o.getUsername() + "', firstname = '" + o.getFullName().substring(0, o.getFullName().indexOf(" "))
+					+ "', lastname = '" + o.getFullName().substring(o.getFullName().indexOf(" ") + 1)
+					+ "', email = '" + o.getEmailAddress() + "' WHERE userId = " + o.getId();
+			System.out.println(sql);
+			Statement s = con.createStatement();
+			s.executeUpdate(sql);
+			u = get(o);
+		} catch (SQLException e) {
+			System.out.println("Not connected");
+		}
+		System.out.println(u.getUsername() + " " + u.getFullName() + " " + u.getEmailAddress());
+		return u;
 	}
 
 	@Override
 	public void delete(User o) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -61,18 +85,53 @@ private Connection con;
 					t.setUsername(r.getString("username"));
 					t.setFullName(r.getString("firstname") + " " + r.getString("lastname"));
 					t.setEmailAddress(r.getString("email"));
+					t.setId(o.getId());
+				}
+			}
+			else {
+				Statement s = con.createStatement();
+				String sql = "SELECT userId, username, firstname, lastname, email FROM user WHERE username = '" + o.getUsername()
+						+ "' AND email = '" + o.getEmailAddress() + "'";
+				ResultSet r = s.executeQuery(sql);
+				System.out.println(sql);
+				while (r.next()) {
+					t.setUsername(r.getString("username"));
+					t.setFullName(r.getString("firstname") + " " + r.getString("lastname"));
+					t.setEmailAddress(r.getString("email"));
+					t.setId(r.getInt("userId"));
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println("Not connected");
+			System.out.println(e);
 		}
 		return t;
 	}
 
 	@Override
 	public List<User> getAll() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public User loginUser(User user) {
+		User t = new User();
+		try {
+			System.out.println("Username and pass: " + user.getUsername() + " " + user.getPassword());
+			Statement s = con.createStatement();
+			String sql = "SELECT userId, username, firstname, lastname, email FROM user WHERE username = '"
+					+ user.getUsername() + "' AND passwordHash = '" + user.getPassword() + "'";
+			ResultSet r = s.executeQuery(sql);
+			System.out.println(sql);
+			while (r.next()) {
+				t.setId(r.getInt("userId"));
+				t.setUsername(r.getString("username"));
+				t.setFullName(r.getString("firstname") + " " + r.getString("lastname"));
+				t.setEmailAddress(r.getString("email"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Not connected " + e);
+		}
+		System.out.println("User " + t.getId() + " " + t.getFullName() + " " + t.getUsername());
+		return t;
 	}
 	
 }

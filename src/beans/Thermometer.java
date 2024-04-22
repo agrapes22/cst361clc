@@ -1,5 +1,10 @@
 package beans;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.faces.bean.*;
 import javax.validation.constraints.*;
 
@@ -17,8 +22,12 @@ public class Thermometer {
 	int userId;
 	boolean active;
 	String scale;
+	String lastRead;
+	List<ThermReads> thermReads;
 
-	public Thermometer() {}
+	public Thermometer() {
+		this.thermReads = new ArrayList<ThermReads>();
+	}
 	
 	public Thermometer(String name, double setTemp, int userId, String scale) {
         this.name = name;
@@ -26,6 +35,7 @@ public class Thermometer {
         this.userId = userId;
         this.scale = scale;
         this.thermometerId = 0;
+		this.thermReads = new ArrayList<ThermReads>();
     }
 	
 	public boolean notifyTemp() {
@@ -91,5 +101,21 @@ public class Thermometer {
 		this.scale = scale;
 	}
 	
+	public String getLastRead() {
+		return this.lastRead;
+	}
+	
+	public void setLastRead(String lastRead) {
+		this.lastRead = lastRead;
+	}
+	
+	public void putRead(String dateTime, Double temp) {
+		ThermReads t = new ThermReads(dateTime, temp);
+		this.thermReads.add(t);
+	}
+	
+	public List<ThermReads> getThermReads() {
+		return this.thermReads;
+	}
 	
 }

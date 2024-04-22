@@ -9,9 +9,10 @@ public class User {
 	String fullName;
 	String emailAddress;
 	int id;
+	private String password;
 	
 	public User() {
-		this.id = 1;		
+		
 	}
 	
 	public void setUsername(String username) {
@@ -39,6 +40,18 @@ public class User {
 	}
 
 	public int getId() {
-		return 1;
+		return this.id;
+	}
+	
+	public String getPassword(){
+		return this.password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

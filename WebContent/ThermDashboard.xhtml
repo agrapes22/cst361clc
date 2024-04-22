@@ -19,78 +19,82 @@
                 </ul>
                 <div class="d-md-none my-2"><button class="btn btn-light me-2" type="button">Button</button><button class="btn btn-primary" type="button">Button</button></div>
             </div>
-            <div class="d-none d-md-block"><button class="btn btn-light me-2" type="button">Sign Out</button><a class="btn btn-primary" role="button" href="Account.xhtml">Account</a></div>
+            <div class="d-none d-md-block">
+            	<h:form id="logoutform"><h:commandButton class="btn btn-primary" id="logoutButton" action="#{UserController.logout}" value="Log Out"></h:commandButton>
+            	<a class="btn btn-primary" role="button" href="Account.xhtml">Account</a>
+            	</h:form>
+            </div>
         </div>
     </nav>
-	<h1 align="center">Dashboard</h1>
+	<h2 align="center">Dashboard</h2>
+	<ui:param name="user" value="#{UserController.user}" />
+	<ui:param name="thermometer" value="#{ThermometerController.getThermometer(user.getId())}" />
 	<div align="center">
 		<h:form>
 			<table class="custom-table">
 				<tr style="padding-top: 5px;" class="custom-tr">
 					<td align="right"><h:outputLabel for="name" >Thermometer Name</h:outputLabel></td>
 					<td>
-						<h:inputText id="name" value="#{thermometer.name}"></h:inputText>
+						<h:inputText id="name" value="#{thermometer.name}" readonly="true"></h:inputText>
 						<h:message for="name" style="color:red"/>
 					</td>
 				</tr>
 				<tr style="padding-top: 5px;" class="custom-tr">
 					<td align="right"><h:outputLabel for="setTemp">Set Temp</h:outputLabel></td>
 					<td>
-						<h:inputText id="setTemp" value="#{thermometer.setTemp}"></h:inputText>
+						<h:inputText id="setTemp" value="#{thermometer.setTemp}" readonly="true"></h:inputText>
 						<h:message for="setTemp" style="color:red"/>
 					</td>
 				</tr>
+				<tr style="padding-top: 5px;" class="custom-tr">
+					<td align="right"><h:outputLabel for="scale">Scale</h:outputLabel></td>
+					<td>
+						<h:inputText id="scale" value="#{thermometer.scale}" readonly="true"></h:inputText>
+						<h:message for="scale" style="color:red"/>
+					</td>
+				</tr>
+				<tr style="padding-top: 5px;" class="custom-tr">
+					<td align="right"><h:outputLabel for="lastRead">Last Read</h:outputLabel></td>
+					<td>
+						<h:inputText id="lastRead" value="#{thermometer.lastRead}" readonly="true"></h:inputText>
+						<h:message for="lastRead" style="color:red"/>
+					</td>
+				</tr>
 			</table>
-			<h:commandButton class="btn btn-light me-2"  id="submit-button" value="Start Thermometer" action="#{ThermometerController.startTherm(thermometer)}"/>  
+			<br></br>
+			<h:commandButton class="btn btn-primary"  id="submit-button" value="Start Thermometer" action="#{ThermometerController.startTherm(thermometer)}"/>  
 		</h:form>
+		<br></br>
+		<br></br>
+		<h:dataTable id="reads"
+    	style=
+    	"border-width: 1;
+    	border-collapse: collapse;
+    	border: 1px dotted;
+    	text-align: center;
+    	padding: 10px;
+    	width: 25%;"
+    	value="#{thermometer.getThermReads()}"
+    	var="reads">   
+
+	    <h:column>
+	        <f:facet name="header" >
+	            <h:outputText value="Date Read"  />
+	        </f:facet>
+        	<h:outputText value="#{reads.dateTime}" style="border: 1px dotted;"/>
+	    </h:column>
+	    <h:column>
+	        <f:facet name="header">
+	            <h:outputText value="Temperature" />
+	        </f:facet>
+	        <h:outputText value="#{reads.temp}" style="border: 1px dotted;"/>
+	    </h:column>
+	
+		</h:dataTable>
+		
 	</div>
 	
-	<div align="center">
-		<table border="1px solid black">
-	      <tr>
-	         <th>Time</th>
-	         <th>Temperature</th>
-	      </tr>
-	   
-		   <tr>
-		      <td>8:57 PM</td>
-		      <td>75</td>
-		   </tr>
-		   
-		   <tr>
-		      <td>8:58 PM</td>
-		      <td>78</td>
-		   </tr>
-		   <tr>
-		      <td>8:59 PM</td>
-		      <td>82</td>
-		   </tr>
-		   <tr>
-		      <td>9:00 PM</td>
-		      <td>86</td>
-		   </tr>
-		   <tr>
-		      <td>9:01 PM</td>
-		      <td>91</td>
-		   </tr>
-		   <tr>
-		      <td>9:02 PM</td>
-		      <td>96</td>
-		   </tr>
-		   <tr>
-		      <td>9:03 PM</td>
-		      <td>105</td>
-		   </tr>
-		   <tr>
-		      <td>9:04 PM</td>
-		      <td>110</td>
-		   </tr>
-		   <tr>
-		      <td>9:05 PM</td>
-		      <td>115</td>
-		   </tr>
-		</table>
-	</div>
+	
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body> 
 </html>

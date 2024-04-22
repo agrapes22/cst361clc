@@ -2,16 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <h:head>
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="assets/css/Navbar-With-Button-icons.css"/>
-	<title>Thermometer Dashboard</title>
 </h:head> 
 <body>
 	<nav class="navbar navbar-light navbar-expand-md py-3">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#" style="margin-right: 0px;"><span>Wi-Fi Thermometer App</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-4"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="ThermDashboard.xhtml" style="margin-right: 0px;"><span>Wi-Fi Thermometer App</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-4"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse flex-grow-0 order-md-first" id="navcol-4">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"></li>
@@ -19,25 +19,45 @@
                 </ul>
                 <div class="d-md-none my-2"><button class="btn btn-light me-2" type="button">Button</button><button class="btn btn-primary" type="button">Button</button></div>
             </div>
-            <div class="d-none d-md-block"><button class="btn btn-light me-2" type="button">Sign Out</button><a class="btn btn-primary" role="button" href="#">Account</a></div>
-        </div>
-    </nav>
-	<h1 class="text-center" style="padding-top: 24px;">Dashboard</h1>
-    <form class="text-end justify-content-center align-items-center align-content-center align-self-center" style="max-width: 80%;margin-right: 10%;margin-left: 10%;margin-top: 15px;" method="post">
-        <div class="row" style="margin-top: 10px;">
-            <div class="col align-self-center"><label class="col-form-label text-start" for="name">Name</label></div>
-            <div class="col"><input class="form-control" type="text" name="name" value="thermometer.name" placeholder="Name"/></div>
-        </div>
-        <div class="row" style="margin-top: 10px;">
-            <div class="col"><label class="col-form-label" for="setTemp">Set Temperature</label></div>
-            <div class="col"><input class="form-control" type="number" min="0" max="500" step="10" placeholder="165" name="setTemp" value="thermometer.setTemp"/></div>
-        </div>
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-lg-12 offset-lg-0">
-            	<input class="btn border rounded-pill btn-primary" type="submit" name="start" value="Start Thermometer" action="#{ThermometerController.startTherm(thermometer)}" style="padding-right: 5%;padding-left: 5%;margin-right: 40%;"/>
+            <div class="d-none d-md-block">
+            	<h:form id="logoutform"><h:commandButton class="btn btn-primary" id="logoutButton" action="#{UserController.logout}" value="Log Out"></h:commandButton>
+            	<a class="btn btn-primary" role="button" href="Account.xhtml">Account</a>
+            	</h:form>
             </div>
         </div>
-    </form>
+    </nav>
+	<h1 align="center">Thermometer Setup</h1>
+	<ui:param name="userId" value="#{UserController.user.getId()}" />
+	<div align="center">
+		<h:form>
+			<table class="custom-table">
+				<tr style="padding-top: 5px;" class="custom-tr">
+					<td align="right"><h:outputLabel for="name" >Thermometer Name</h:outputLabel></td>
+					<td>
+						<h:inputText id="name" value="#{thermometer.name}"></h:inputText>
+						<h:message for="name" style="color:red"/>
+						<h:inputHidden id="userId" value="userId"></h:inputHidden>
+					</td>
+				</tr>
+				<tr style="padding-top: 5px;" class="custom-tr">
+					<td align="right"><h:outputLabel for="setTemp">Set Temp</h:outputLabel></td>
+					<td>
+						<h:inputText id="setTemp" value="#{thermometer.setTemp}"></h:inputText>
+						<h:message for="setTemp" style="color:red"/>
+					</td>
+				</tr>
+				<tr style="padding-top: 5px;" class="custom-tr">
+					<td align="right"><h:outputLabel for="scale">Scale</h:outputLabel></td>
+					<td>
+						<h:inputText id="scale" value="#{thermometer.scale}"></h:inputText>
+						<h:message for="scale" style="color:red"/>
+					</td>
+				</tr>
+			</table>
+			<h:commandButton class="btn btn-light me-2"  id="submit-button" value="Start Thermometer" action="#{ThermometerController.startTherm(thermometer)}"/>  
+		</h:form>		
+	</div>
+	
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body> 
 </html>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/Navbar-With-Button-icons.css"/>
 </h:head> 
 <body> 
-	<nav class="navbar navbar-light navbar-expand-md py-3" align="center">
+	<nav class="navbar navbar-light navbar-expand-md py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="ThermDashboard.xhtml" style="margin-right: 0px;"><span>Wi-Fi Thermometer App</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-4"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse flex-grow-0 order-md-first" id="navcol-4">
                 <ul class="navbar-nav me-auto">
@@ -19,15 +19,12 @@
                 <div class="d-md-none my-2"><button class="btn btn-light me-2" type="button">Button</button><button class="btn btn-primary" type="button">Button</button></div>
             </div>
             <div class="d-none d-md-block">
-               	<h:form id="logoutform"><h:commandButton class="btn btn-primary" id="logoutButton" action="#{UserController.logout}" value="Log Out"></h:commandButton>
-            	<a class="btn btn-primary" role="button" href="Account.xhtml">Account</a>
-            	</h:form>
+            	<a class="btn btn-primary" role="button" href="Register.xhtml">Register</a>
             </div>
         </div>
     </nav>
-    <h2 align="center">Account</h2>
+    <h2 align="center">Login</h2>
     <div align="center">
-        <ui:param name="user" value="#{UserController.user}" />
 		<h:form>
 			<table class="custom-table">
 				<tr style="padding-top: 5px;" class="custom-tr">
@@ -38,28 +35,17 @@
 					</td>
 				</tr>
 				<tr style="padding-top: 5px;" class="custom-tr">
-					<td align="right"><h:outputLabel for="fullname">Full Name</h:outputLabel></td>
+					<td align="right"><h:outputLabel for="password">Password</h:outputLabel></td>
 					<td>
-						<h:inputText id="fullname" value="#{user.fullName}"></h:inputText>
-						<h:message for="fullname" style="color:red"/>
-					</td>
-				</tr>
-				<tr style="padding-top: 5px;" class="custom-tr">
-					<td align="right"><h:outputLabel for="emailAddress">Email Address</h:outputLabel></td>
-					<td>
-						<h:inputText id="emailAddress" value="#{user.emailAddress}"></h:inputText>
-						<h:message for="emailAddress" style="color:red"/>
+						<h:inputSecret id="password" value="#{user.password}"></h:inputSecret>
+						<h:message for="password" style="color:red"/>
 					</td>
 				</tr>
 			</table>
 			<br></br>
-			<h:commandButton class="btn btn-primary" id="submit-button" value="Update User" action="#{UserController.updateUser(user)}"/>  
+			<h:commandButton class="btn btn-primary" id="submit-button" value="Login" action="#{UserController.login(user)}"/>
+			<p align="center" style="color:red">#{UserController.errorMessage}</p>
 		</h:form>
-		<br></br>
-		<a class="btn btn-primary" role="button" href="ThermDashboard.xhtml">Thermometer Dashboard</a>
-		
-		<a class="btn btn-primary" role="button" href="ThermometerSetup.xhtml">Add Thermometer</a>
-		
 	</div>
 </body> 
 </html>
